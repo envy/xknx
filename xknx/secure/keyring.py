@@ -424,11 +424,12 @@ class KeyringSAXContentHandler(ContentHandler):
 
     def append_string(self, value: str | bytes) -> None:
         """Append a string to a byte array for signature verification."""
-        self.output.append(len(value))
 
         if isinstance(value, str):
+            self.output.append(len(value.encode("utf-8")))
             self.output.extend(value.encode("utf-8"))
         if isinstance(value, bytes):
+            self.output.append(len(value))
             self.output.extend(value)
 
 
